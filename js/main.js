@@ -26,15 +26,11 @@ const cartButton = document.querySelector('#cart-button');
 const modal = document.querySelector('.modal');
 const close = document.querySelector('.close');
 const sectionHeading = document.querySelector('#section-heading');
-//const restaurantTitle = document.querySelector('.restaurant-title');
-//const restaurantRating = document.querySelector('.rating');
-//const restaurantPrice = document.querySelector('.price');
 const restaurantCategory = document.querySelector('.category');
 const modalBody = document.querySelector('.modal-body');
 const modalPrice = document.querySelector('.modal-pricetag');
 const buttonClearCart = document.querySelector('.clear-cart');
 const buttonCartSvg = document.querySelector('.button-cart-svg');
-//const sectionHeading = document.querySelector('#section-heading');
 
 let login = localStorage.getItem('kiril345'); //запись логина в браузер
 
