@@ -78,14 +78,8 @@ button {
     color: #595959;
     font-size: 16px;
     line-height: 24px;
+    outline: transparent;
 }
-
-.button:hover {
-    background: #1890ff;
-    border: 1px solid #1890ff;
-    color: #fff;
-}
-
 
 .button-primary {
     background: #1890ff;
@@ -100,6 +94,33 @@ button {
     color: #595959;
 }
 
+.button-primary:active {
+    background: #1890ff;
+    filter:brightness(95%);
+}
+
+.button-primary .button-cart-svg {
+    background-color: #fff;
+}
+
+.button-cart-svg {
+    background-color: #595959;
+}
+
+.button-cart {
+    display: none;
+    margin: 0 5px;
+}
+.button-cart:hover{
+    background: #1890ff;
+    color: #fff; 
+}
+
+.button-out {
+    display: none;
+    margin: 0 5px;
+}
+
 .button-icon {
     margin-right: 6px;
 }
@@ -111,49 +132,33 @@ button {
 .button-auth {
     background-position: 20px 13px;
 }
+.hidden{
+    display: none;
+}
 
-.button-primary .button-auth-svg {
+.button .button-auth-svg {
     width: 24px;
     height: 24px;
-    background-color: #fff;
+    background-color: #FFF;
     -webkit-mask: url("../img/icon/user.svg") no-repeat 50% 50%;
     mask: url("../img/icon/user.svg") no-repeat 50% 50%;
     background-repeat: no-repeat;
 }
 
-.button-primary:hover .button-auth-svg {
-    background-color: #595959;
-}
-
 .button .button-cart-svg {
     width: 24px;
     height: 24px;
-    background-color: #595959;
     -webkit-mask: url("../img/icon/shopping-cart.svg") no-repeat 50% 50%;
     mask: url("../img/icon/shopping-cart.svg") no-repeat 50% 50%;
     background-repeat: no-repeat;
 }
 
-.button-primary .button-cart-svg {
-    background-color: #fff;
-}
-
 .button:hover .button-cart-svg {
-    background-color: #fff;
-}
-
-.button-primary:hover .button-cart-svg {
     background-color: #595959;
 }
 
-.button-cart {
-    display: none;
-    margin: 0 5px;
-}
-
-.button-out {
-    display: none;
-    margin: 0 5px;
+.button:hover .button-auth-svg {
+    background-color: #595959;
 }
 
 .user-name {
@@ -258,15 +263,12 @@ button {
     object-fit: cover;
 }
 
-
 .card-text {
     padding: 20px 23px 35px;
     min-height: 275px;
     display: flex;
     flex-direction: column;
 }
-
-
 
 .restaurants .card-text {
     min-height: auto;
@@ -434,27 +436,40 @@ button {
 }
 
 .modal-dialog {
-    max-width: 780px;
-    width: 95%;
+    max-width: 500px;
+    height: 400px;
     background: #ffffff;
     border-radius: 5px;
     margin: auto;
     padding: 40px 45px;
+    transition: .2s;
+    overflow: hidden;
+}
+
+.modal-dialog-hidden{
+    padding: 0;
+    height: 0;
+    
 }
 
 .modal-dialog-auth {
     width: auto;
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0
 }
 
 .label-auth {
     display: block;
-    margin: 30px;
+    margin-bottom: 30px;
 }
 
 .label-auth span {
     width: 80px;
     display: inline-block;
+    margin-bottom: 3px;
 }
 
 .modal-header {
@@ -465,7 +480,7 @@ button {
 }
 
 .modal-title {
-    margin: 0;
+    margin-bottom: 25px;
     font-weight: bold;
     font-size: 36px;
     line-height: 42px;
@@ -482,12 +497,24 @@ button {
     border: none;
     background-color: transparent;
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 0;
+    right: 10px;
+    outline: transparent;
 }
 
 .modal-body {
     margin-bottom: 22px;
+    text-align: center;
+}
+.login-input{
+    width: 100%;
+    padding: 5px;
+}
+.error-input{
+    border-color: #f56248;
+}
+.active-icon{
+    background-color:#f56248;;  
 }
 
 .food-row {
@@ -571,6 +598,10 @@ button {
     line-height: 23px;
 }
 
+.visible{
+    display: flex;
+}
+
 @media (max-width: 1366px) {
     .container {
         max-width: 960px;
@@ -580,7 +611,6 @@ button {
         background-position: center right -300px;
         background-size: 750px;
     }
-
 
     .kebab {
         background-position: top -5px right -93px;
@@ -610,16 +640,11 @@ button {
     .container {
         max-width: 750px;
     }
-
-
-
     .pizza {
         padding: 50px;
         background-size: 500px;
         background-position: center right -200px;
     }
-
-
     .kebab {
         background-position: top 55px right -100px;
         background-size: 385px;
@@ -633,9 +658,6 @@ button {
     .sushi {
         background-position: top 30px right -175px;
     }
-
-
-
     .promo-text {
         font-size: 18px;
         max-width: 400px;
@@ -675,12 +697,10 @@ button {
         margin-left: 20px;
     }
 
-
     .pizza {
         background-size: 400px;
         background-position: bottom 50px right -200px;
     }
-
 
     .kebab {
         background-position: top -5px right -74px;
@@ -708,6 +728,10 @@ button {
 }
 
 @media (max-width: 578px) {
+    .modal-dialog-auth{
+        width: 100%;
+        height: 400px;
+    }
     .container {
         width: 90%;
     }
@@ -775,6 +799,9 @@ button {
     .social-links {
         order: 2;
     }
+    .modal-dialog{
+        padding:25px 15px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -785,7 +812,6 @@ button {
     .button-icon {
         margin: 0;
     }
-
     .user-name {
         margin: 10px;
 
@@ -799,7 +825,6 @@ button {
     .button {
         min-height: 40px;
         padding: 5px 12px;
-
     }
 
     .button-out-svg {

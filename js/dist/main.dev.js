@@ -17,6 +17,7 @@ var optionSlider = {
 var swiper = new Swiper('.swiper-container', optionSlider);
 var buttonAuth = document.querySelector('.button-auth');
 var modalAuth = document.querySelector('.modal-auth');
+var modalDialog = document.querySelector('.modal-dialog-auth');
 var closeAuth = document.querySelector('.close-auth');
 var logInForm = document.querySelector('#logInForm');
 var loginInput = document.querySelector('#login');
@@ -32,25 +33,25 @@ var cartButton = document.querySelector('#cart-button');
 var modal = document.querySelector('.modal');
 var close = document.querySelector('.close');
 var sectionHeading = document.querySelector('#section-heading');
-var restaurantCategory = document.querySelector('.category');
-var modalBody = document.querySelector('.modal-body');
+var cartModalBody = document.querySelector('.modal-body');
 var modalPrice = document.querySelector('.modal-pricetag');
 var buttonClearCart = document.querySelector('.clear-cart');
 var buttonCartSvg = document.querySelector('.button-cart-svg');
-var login = localStorage.getItem('kiril345'); //запись логина в браузер
+var login = localStorage.getItem('kiril345'); //запись ключа 
 
 var cart = JSON.parse(localStorage.getItem("kiril345_".concat(login))) || [];
-console.log(cart);
 
 function saveCart() {
   localStorage.setItem("kiril345_".concat(login), JSON.stringify(cart));
 }
 
-function downloadCart() {
+function downloadCart(handler) {
   if (localStorage.getItem("kiril345_".concat(login))) {
     var data = JSON.parse(localStorage.getItem("kiril345_".concat(login)));
     cart.push.apply(cart, _toConsumableArray(data));
   }
+
+  handler();
 }
 
 var getData = function ur(url) {
@@ -89,13 +90,23 @@ var getData = function ur(url) {
 
 var validName = function validName(str) {
   //валидация ввода логина
-  var regName = /^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$/;
+  var regName = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
   return regName.test(str);
 };
 
 function toogleModalAuth() {
   //модальное окно авторизации
   modalAuth.classList.toggle('is-open');
+  setTimeout(function () {
+    return modalDialog.classList.toggle('modal-dialog-hidden');
+  }, 100);
+}
+
+function closeModelAuth() {
+  setTimeout(function () {
+    return modalAuth.classList.toggle('is-open');
+  }, 100);
+  modalDialog.classList.toggle('modal-dialog-hidden');
 }
 
 function toggleModal() {
@@ -103,80 +114,61 @@ function toggleModal() {
   modal.classList.toggle('is-open');
 }
 
-function returnMain() {
+function returnMain(handler) {
   //возврат на главную страницу
-  containerPromo.classList.remove('hide'); //swiper.autoplay.start()
-
+  containerPromo.classList.remove('hide');
   swiper.init();
   restaurants.classList.remove('hide');
   menu.classList.add('hide');
+  handler();
 }
 
-function authorized() {
-  function logOut() {
-    //выход 
-    login = null;
-    localStorage.removeItem('kiril345'); //ключ для записи на local storage
+function logIn() {
+  loginInput.classList.remove('error-input'); //вход на сайт
 
-    buttonAuth.style.display = '';
-    userName.style.display = '';
-    buttonOut.style.display = '';
-    cartButton.style.display = '';
-    buttonOut.removeEventListener('click', logOut); //очистка события
-
-    cart.length = 0;
-    chekAuth();
-    returnMain();
+  if (validName(loginInput.value)) {
+    login = loginInput.value;
+    localStorage.setItem('kiril345', login);
+    logInForm.reset();
+    closeModelAuth();
+    downloadCart(chekAuth);
+  } else {
+    loginInput.classList.add('error-input');
+    logInForm.reset();
   }
-
-  console.log('Авторизован');
-  userName.textContent = login;
-  buttonAuth.style.display = 'none';
-  userName.style.display = 'inline';
-  buttonOut.style.display = 'flex';
-  cartButton.style.display = 'flex';
-  buttonOut.addEventListener('click', logOut);
 }
 
-function notAuthorized() {
-  console.log('Не авторизован');
+function logOut() {
+  //выход 
+  login = null;
+  localStorage.removeItem('kiril345'); //ключ для записи на local storage
 
-  function logIn(event) {
-    //вход на сайт
-    event.preventDefault();
+  buttonAuth.classList.remove('hidden');
+  userName.classList.remove('visible');
+  buttonOut.classList.remove('visible');
+  cartButton.classList.remove('visible');
+  buttonOut.removeEventListener('click', logOut); //очистка события
 
-    if (validName(loginInput.value)) {
-      login = loginInput.value;
-      localStorage.setItem('kiril345', login);
-      toogleModalAuth();
-      downloadCart();
-      buttonAuth.removeEventListener('click', toogleModalAuth); //очистка событий
-
-      closeAuth.removeEventListener('click', toogleModalAuth);
-      logInForm.removeEventListener('submit', logIn);
-      loginInput.style.borderColor = '';
-      logInForm.reset();
-      chekAuth();
-    } else {
-      loginInput.style.borderColor = 'red';
-      loginInput.value = '';
-    }
-  }
-
-  buttonAuth.addEventListener('click', toogleModalAuth);
-  closeAuth.addEventListener('click', toogleModalAuth);
-  logInForm.addEventListener('submit', logIn);
+  cart.length = 0;
+  returnMain(chekAuth);
 }
 
 function chekAuth() {
-  //проверка на авторизацию
-  if (login) {
-    authorized();
+  if (login != null) {
+    console.log('Авторизован');
+    userName.textContent = login.substring(0, login.indexOf('@'));
+    userName.classList.add('visible');
+    buttonAuth.classList.add('hidden');
+    buttonOut.classList.add('visible');
+    cartButton.classList.add('visible');
+    cartProduct();
   } else {
-    notAuthorized();
+    console.log('Не авторизован');
+    userName.classList.remove('visible');
+    buttonAuth.classList.remove('hidden');
+    buttonOut.classList.remove('visible');
+    cartButton.classList.remove('visible');
   }
-
-  cartProduct();
 }
 
 function createCardRestaurant(_ref) {
@@ -212,7 +204,7 @@ function createCardGood(_ref2) {
   var card = document.createElement('div');
   card.className = 'card';
   card.id = id;
-  card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>"));
+  card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
   console.log(card);
   cardsMenu.insertAdjacentElement('beforeend', card); // всьавляем карту товара в меню ремторана
 }
@@ -221,91 +213,83 @@ function openGoods(event) {
   //при клике по карте ресторана открываем его меню и скрываем список других ресторанов
   var target = event.target;
   console.log(target);
+  var restaurant = target.closest('.card-restaurant');
+  console.log('restaurant', restaurant);
 
-  if (login) {
-    //проверка на вход на сайт при клике на карту ресторана
-    var restaurant = target.closest('.card-restaurant');
-    console.log('restaurant', restaurant);
+  if (restaurant) {
+    var headingRestaurant = function headingRestaurant() {
+      //добавляем заголовок на странице меню ресторана
+      var card = "<h2 class=\"section-title restaurant-title\">".concat(name, "</h2>\n                      <div class=\"card-info\">\n                        <div class=\"rating\">").concat(stars, "</div>\n                        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n                        <div class=\"category\">").concat(kitchen, "</div>\n                      </div>");
+      sectionHeading.insertAdjacentHTML('beforeend', card);
+    };
 
-    if (restaurant) {
-      var headingRestaurant = function headingRestaurant() {
-        //добавляем заголовок на странице меню ресторана
-        var card = "<h2 class=\"section-title restaurant-title\">".concat(name, "</h2>\n                      <div class=\"card-info\">\n                        <div class=\"rating\">").concat(stars, "</div>\n                        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n                        <div class=\"category\">").concat(kitchen, "</div>\n                      </div>");
-        sectionHeading.insertAdjacentHTML('beforeend', card);
-      };
+    containerPromo.classList.add('hide');
+    swiper.destroy(false); //отключение свайпера
 
-      containerPromo.classList.add('hide');
-      swiper.destroy(false); //отключение свайпера
+    restaurants.classList.add('hide');
+    menu.classList.remove('hide');
+    cardsMenu.textContent = ''; //очистка меню ресторана при возврате на главную страницу
 
-      restaurants.classList.add('hide');
-      menu.classList.remove('hide');
-      cardsMenu.textContent = ''; //очистка меню ресторана при возврате на главную страницу
+    sectionHeading.textContent = ''; //очистка заголовка ресторана при возврате на главную страницу
 
-      sectionHeading.textContent = ''; //очистка заголовка ресторана при возврате на главную страницу
+    var _restaurant$info = restaurant.info,
+        name = _restaurant$info.name,
+        kitchen = _restaurant$info.kitchen,
+        price = _restaurant$info.price,
+        stars = _restaurant$info.stars;
+    headingRestaurant();
+    getData("./db/".concat(restaurant.products)).then(function (data) {
+      // запрос на получение данных
+      console.log(data);
+      data.forEach(createCardGood);
+    });
+  }
+}
 
-      var _restaurant$info = restaurant.info,
-          name = _restaurant$info.name,
-          kitchen = _restaurant$info.kitchen,
-          price = _restaurant$info.price,
-          stars = _restaurant$info.stars;
-      headingRestaurant(); //restaurantTitle.textContent = name;
-      ////restaurantRating.textContent = stars;
-      ////restaurantPrice.textContent = `От ${price} ₽`;
-      //restaurantCategory.textContent = kitchen;
+function addToCart(event) {
+  //корзина товаров
+  if (login != null) {
+    var target = event.target;
+    var buttonAddToCart = target.closest('.button-add-cart');
 
-      getData("./db/".concat(restaurant.products)).then(function (data) {
-        // запрос на получение данных
-        console.log(data);
-        data.forEach(createCardGood);
-      }); // sectionHeading.textContent = '';
-      //headingRestaurant();
+    if (buttonAddToCart) {
+      var card = target.closest('.card');
+      var id = card.id;
+      var title = card.querySelector('.card-title-reg').textContent;
+      var cost = card.querySelector('.card-price').textContent;
+      console.log(title, cost, id);
+      var food = cart.find(function (item) {
+        return item.id === id;
+      });
+
+      if (food) {
+        food.count += 1;
+      } else {
+        cart.push({
+          id: id,
+          title: title,
+          cost: cost,
+          count: 1
+        });
+        cartProduct();
+      }
+
+      saveCart();
     }
   } else {
     toogleModalAuth();
   }
 }
 
-function addToCart(event) {
-  //корзина товаров
-  console.log(event);
-  var target = event.target;
-  var buttonAddToCart = target.closest('.button-add-cart');
-
-  if (buttonAddToCart) {
-    var card = target.closest('.card');
-    var id = card.id;
-    var title = card.querySelector('.card-title-reg').textContent;
-    var cost = card.querySelector('.card-price').textContent;
-    console.log(title, cost, id);
-    var food = cart.find(function (item) {
-      return item.id === id;
-    });
-
-    if (food) {
-      food.count += 1;
-    } else {
-      cart.push({
-        id: id,
-        title: title,
-        cost: cost,
-        count: 1
-      });
-      cartProduct();
-    }
-
-    saveCart();
-  }
-}
-
 function renderCart() {
-  modalBody.textContent = '';
+  cartModalBody.textContent = '';
   cart.forEach(function (_ref3) {
     var id = _ref3.id,
         title = _ref3.title,
         cost = _ref3.cost,
         count = _ref3.count;
     var itemCart = "<div class=\"food-row\">\n                        <span class=\"food-name\">".concat(title, "</span>\n                        <strong class=\"food-price\">").concat(cost, "</strong>\n                        <div class=\"food-counter\">\n                          <button class=\"counter-button counter-minus\" data-id=").concat(id, ">-</button>\n                          <span class=\"counter\">").concat(count, "</span>\n                          <button class=\"counter-button counter-plus\" data-id=").concat(id, ">+</button>\n                        </div>\n                      </div>");
-    modalBody.insertAdjacentHTML('afterbegin', itemCart);
+    cartModalBody.insertAdjacentHTML('afterbegin', itemCart);
   });
   var totalPrice = cart.reduce(function (result, item) {
     return result + parseFloat(item.cost) * item.count;
@@ -337,39 +321,75 @@ function changeCount(event) {
 function cartProduct() {
   //подсвечиваем кнопку корзины если в корззине есть товар
   if (cart.length != 0) {
-    buttonCartSvg.style.backgroundColor = 'red';
+    buttonCartSvg.classList.add('active-icon');
   } else {
-    buttonCartSvg.style.backgroundColor = '';
-    modalBody.textContent = 'Ваша корзина пустая';
+    buttonCartSvg.classList.remove('active-icon');
+    cartModalBody.textContent = 'Ваша корзина пустая';
   }
 }
 
-function init() {
+function init(handler) {
+  handler();
+  buttonAuth.addEventListener('click', function (event) {
+    event.preventDefault();
+    toogleModalAuth();
+  });
+  logInForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    logIn();
+  });
+  closeAuth.addEventListener('click', function (event) {
+    event.preventDefault();
+    closeModelAuth();
+  });
+  buttonOut.addEventListener('click', function (event) {
+    event.preventDefault();
+    logOut();
+  });
+  cardsMenu.addEventListener('click', function (event) {
+    event.preventDefault();
+    addToCart(event);
+  });
   getData('./db/partners.json').then(function (data) {
     // запрос и получение данных
     console.log(data);
     data.forEach(createCardRestaurant); //перебирается массив данных и создаются карты ресторанов
   });
-  cardsMenu.addEventListener('click', addToCart);
-  cartButton.addEventListener('click', function () {
+  cartButton.addEventListener('click', function (event) {
     //открыть окно корзины
+    event.preventDefault();
     renderCart();
     toggleModal();
   });
-  modalBody.addEventListener('click', changeCount);
+  cartModalBody.addEventListener('click', function (event) {
+    //измеить количество товаров в корзине
+    event.preventDefault();
+    changeCount(event);
+  });
   buttonClearCart.addEventListener('click', function () {
     //очистка корзины
     cart.length = 0;
     renderCart();
   });
-  close.addEventListener('click', toggleModal); //закрыть меню корзины
-
-  cardsRestaurants.addEventListener('click', openGoods); //открываем меню ресторана
-
-  logo.addEventListener('click', returnMain);
-  chekAuth();
-  cartProduct();
+  close.addEventListener('click', function (event) {
+    //закрыть меню корзины
+    event.preventDefault();
+    toggleModal();
+  });
+  cardsRestaurants.addEventListener('click', function (event) {
+    //открываем меню ресторана
+    event.preventDefault();
+    openGoods(event);
+  });
+  logo.addEventListener('click', function (event) {
+    //возврат на главную страницу
+    event.preventDefault();
+    returnMain(chekAuth);
+    cartProduct();
+  });
 }
 
-init();
-swiper.init();
+document.addEventListener('DOMContentLoaded', function () {
+  init(chekAuth);
+  swiper.init();
+});
