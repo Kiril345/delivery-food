@@ -94,7 +94,7 @@ var validName = function validName(str) {
   return regName.test(str);
 };
 
-function toogleModalAuth() {
+function openModalAuth() {
   modalAuth.classList.toggle('show-modal'); //модальное окно авторизации
 
   setTimeout(function () {
@@ -105,15 +105,17 @@ function toogleModalAuth() {
 function closeModelAuth() {
   setTimeout(function () {
     return modalAuth.classList.toggle('show-modal');
-  }, 300);
-  modalAuth.classList.toggle('fade');
+  }, 400);
+  setTimeout(function () {
+    return modalAuth.classList.toggle('fade');
+  }, 200);
   modalAuth.classList.toggle('hide-modal-auth');
   setTimeout(function () {
     return modalAuth.classList.toggle('hide-modal-auth');
-  }, 300);
+  }, 500);
 }
 
-function toggleModal() {
+function openModalCart() {
   //модальное окно карзины
   modalCart.classList.toggle('show-modal');
   setTimeout(function () {
@@ -124,13 +126,15 @@ function toggleModal() {
 function closeModalCart() {
   setTimeout(function () {
     return modalCart.classList.toggle('show-modal');
-  }, 300); //модальное окно карзины
+  }, 400); //модальное окно карзины
 
-  modalCart.classList.toggle('fade');
+  setTimeout(function () {
+    return modalCart.classList.toggle('fade');
+  }, 200);
   modalCart.classList.toggle('hide-modal-cart');
   setTimeout(function () {
     return modalCart.classList.toggle('hide-modal-cart');
-  }, 300);
+  }, 500);
 }
 
 function returnMain(handler) {
@@ -296,7 +300,7 @@ function addToCart(event) {
       saveCart();
     }
   } else {
-    toogleModalAuth();
+    openModalAuth();
   }
 }
 
@@ -351,7 +355,7 @@ function init(handler) {
   handler();
   buttonAuth.addEventListener('click', function (event) {
     event.preventDefault();
-    toogleModalAuth();
+    openModalAuth();
   });
   logInForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -378,7 +382,7 @@ function init(handler) {
     //открыть окно корзины
     event.preventDefault();
     renderCart();
-    toggleModal();
+    openModalCart();
   });
   cartModalBody.addEventListener('click', function (event) {
     //измеить количество товаров в корзине

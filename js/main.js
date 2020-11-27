@@ -63,29 +63,29 @@ const validName = function(str) {              //валидация ввода �
 }
 
 
-function toogleModalAuth() { 
+function openModalAuth() { 
   modalAuth.classList.toggle('show-modal');             //модальное окно авторизации
   setTimeout(() => modalAuth.classList.toggle('fade'), 100);
 }
 
 function closeModelAuth() {
-  setTimeout(() => modalAuth.classList.toggle('show-modal'), 300);
-  modalAuth.classList.toggle('fade');
+  setTimeout(() => modalAuth.classList.toggle('show-modal'), 400);
+  setTimeout(() => modalAuth.classList.toggle('fade'), 200);
   modalAuth.classList.toggle('hide-modal-auth');
-  setTimeout(() => modalAuth.classList.toggle('hide-modal-auth'), 300);
+  setTimeout(() => modalAuth.classList.toggle('hide-modal-auth'), 500);
 }
 
 
-function toggleModal() {                      //модальное окно карзины
+function openModalCart() {                      //модальное окно карзины
   modalCart.classList.toggle('show-modal');
   setTimeout(() => modalCart.classList.toggle('fade'), 100);
 }
 
 function closeModalCart() {    
-  setTimeout(() => modalCart.classList.toggle('show-modal'), 300);                  //модальное окно карзины
-  modalCart.classList.toggle('fade');
+  setTimeout(() => modalCart.classList.toggle('show-modal'), 400);                  //модальное окно карзины
+  setTimeout(() => modalCart.classList.toggle('fade'), 200);
   modalCart.classList.toggle('hide-modal-cart');
-  setTimeout(() => modalCart.classList.toggle('hide-modal-cart'), 300);
+  setTimeout(() => modalCart.classList.toggle('hide-modal-cart'), 500);
 }
 
 
@@ -256,7 +256,7 @@ function addToCart(event) {        //корзина товаров
     saveCart();
   }
   } else {
-    toogleModalAuth();
+    openModalAuth();
   }
 }
 
@@ -316,7 +316,7 @@ function init(handler) {
   handler();
   buttonAuth.addEventListener('click',  event => {
     event.preventDefault();
-    toogleModalAuth();
+    openModalAuth();
   });
   
   logInForm.addEventListener('submit',  event => {
@@ -347,7 +347,7 @@ function init(handler) {
   cartButton.addEventListener('click', event => {  //открыть окно корзины
     event.preventDefault();
     renderCart(); 
-    toggleModal();
+    openModalCart();
   });           
 
   cartModalBody.addEventListener('click', event => {  //измеить количество товаров в корзине

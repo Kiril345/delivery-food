@@ -415,10 +415,10 @@ button {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.3);
     display: none;
     z-index: 999;
-    transition: opacity .3s linear;
+    transition: opacity .2s linear;
     opacity: 0;
 }
 
@@ -433,7 +433,7 @@ button {
     width: 500px;
     height: 400px;
     padding: 40px 45px;
-    transform: translateY(50%);
+    transform: translateY(150%);
 }
 .modal-dialog-cart {
     height: auto;
@@ -441,26 +441,23 @@ button {
     width: 600px;
     max-width: 800px;
     padding: 30px 35px;
-    max-height: calc(100% - 100px);
-    transform: translateY(80%);
+    max-height: calc(100% - 150px);
+    transform: translateY(-100%);
 }
 .fade .modal-dialog{
-    transition-duration: .4s;
+    transition-duration: .6s;
     transition-timing-function: cubic-bezier(.3,.1,.1,2),ease-in;
     transform: translate(0);
 }
-.hide-modal-auth .modal-dialog{
-    height: 0;
-    padding: 5px 5px; 
-    transition: .2s;
+.hide-modal-auth .modal-dialog,
+.hide-modal-cart .modal-dialog{
+    transform: translateY(-150%);
+    transition: transform .2s ease-out;
     
 }
 .hide-modal-cart .modal-dialog{
-    transform: translateY(-100%);
-    transition: transform .1s ease-out;
-    
+    transform: translateY(200%);  
 }
-
 
 .label-auth {
     display: block;
