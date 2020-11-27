@@ -442,7 +442,7 @@ button {
     max-width: 800px;
     padding: 30px 35px;
     max-height: calc(100% - 150px);
-    transform: translateY(-100%);
+    transform: translateY(-220%);
 }
 .fade .modal-dialog{
     transition-duration: .6s;
@@ -456,7 +456,7 @@ button {
     
 }
 .hide-modal-cart .modal-dialog{
-    transform: translateY(200%);  
+    transform: translateY(220%);  
 }
 
 .label-auth {
