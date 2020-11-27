@@ -94,48 +94,15 @@ button {
     color: #595959;
 }
 
-.button-primary:active {
-    background: #1890ff;
-    filter:brightness(95%);
-}
-
-.button-primary .button-cart-svg {
-    background-color: #fff;
-}
-
-.button-cart-svg {
-    background-color: #595959;
-}
-
-.button-cart {
-    display: none;
-    margin: 0 5px;
-}
-.button-cart:hover{
+.button-cart:hover, .clear-cart:hover{
     background: #1890ff;
     color: #fff; 
 }
-
-.button-out {
-    display: none;
-    margin: 0 5px;
+.button-primary:active, .button-cart:active, .clear-cart:active {
+    background: #1890ff;
+    color: #fff; 
+    filter:brightness(60%);
 }
-
-.button-icon {
-    margin-right: 6px;
-}
-
-.button-card-text {
-    margin-right: 10px;
-}
-
-.button-auth {
-    background-position: 20px 13px;
-}
-.hidden{
-    display: none;
-}
-
 .button .button-auth-svg {
     width: 24px;
     height: 24px;
@@ -160,6 +127,39 @@ button {
 .button:hover .button-auth-svg {
     background-color: #595959;
 }
+
+.button-cart:hover .button-cart-svg {
+    background-color: #fff;
+}
+
+.button-primary .button-cart-svg {
+    background-color: #fff;
+}
+
+.button-cart-svg {
+    background-color: #595959;
+}
+
+.button-cart, .button-out {
+    display: none;
+    margin: 0 5px;
+}
+
+.button-icon {
+    margin-right: 6px;
+}
+
+.button-card-text {
+    margin-right: 10px;
+}
+
+.button-auth {
+    background-position: 20px 13px;
+}
+.hidden{
+    display: none;
+}
+
 
 .user-name {
     display: none;
@@ -431,8 +431,8 @@ button {
 .modal-dialog-auth {
     max-width: 500px;
     width: 500px;
-    height: 400px;
-    padding: 40px 45px;
+    height: 390px;
+    padding: 40px 45px 30px;
     transform: translateY(150%);
 }
 .modal-dialog-cart {
@@ -510,10 +510,6 @@ button {
 .error-input{
     border-color: #f56248;
 }
-.active-icon{
-    background-color:#f56248;;  
-}
-
 .food-row {
     display: flex;
     align-items: flex-start;
@@ -583,7 +579,7 @@ button {
 
 .footer-buttons {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .modal-pricetag {
@@ -593,7 +589,7 @@ button {
     padding: 10px 20px;
     font-size: 20px;
     line-height: 23px;
-    margin-right: 10px;
+    margin-right: auto;
     min-width: 80px;
 }
 
@@ -611,6 +607,10 @@ button {
 
 .fade{
     opacity: 1;
+}
+
+.active-icon{
+    background-color:#f56248!important;  
 }
 
 @media (max-width: 1366px) {
@@ -644,10 +644,6 @@ button {
     .category,
     .price {
         font-size: 14px;
-    }
-    .modal-pricetag{
-        padding: 9px;
-        font-size: 17px;
     }
 }
 
@@ -822,6 +818,9 @@ button {
 }
 
 @media (max-width: 480px) {
+    body{
+        padding-top: 24px;
+    }
     .button-text {
         display: none;
     }
@@ -881,5 +880,11 @@ button {
 
     .footer-link:not(:last-child) {
         margin-right: 0;
+    }
+
+    .modal-pricetag{
+        padding: 9px;
+        font-size: 17px;
+        margin-right: 10px;
     }
 }
