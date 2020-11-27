@@ -81,11 +81,11 @@ function toggleModal() {                      //модальное окно ка
   setTimeout(() => modalCart.classList.toggle('fade'), 100);
 }
 
-function closeModalCart() {                      //модальное окно карзины
+function closeModalCart() {    
+  setTimeout(() => modalCart.classList.toggle('show-modal'), 300);                  //модальное окно карзины
   modalCart.classList.toggle('fade');
-  setTimeout(() => modalCart.classList.toggle('show-modal'), 200);
   modalCart.classList.toggle('hide-modal-cart');
-  setTimeout(() => modalCart.classList.toggle('hide-modal-cart'), 200);
+  setTimeout(() => modalCart.classList.toggle('hide-modal-cart'), 300);
 }
 
 

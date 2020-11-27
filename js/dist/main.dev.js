@@ -122,15 +122,15 @@ function toggleModal() {
 }
 
 function closeModalCart() {
-  //модальное окно карзины
-  modalCart.classList.toggle('fade');
   setTimeout(function () {
     return modalCart.classList.toggle('show-modal');
-  }, 200);
+  }, 300); //модальное окно карзины
+
+  modalCart.classList.toggle('fade');
   modalCart.classList.toggle('hide-modal-cart');
   setTimeout(function () {
     return modalCart.classList.toggle('hide-modal-cart');
-  }, 200);
+  }, 300);
 }
 
 function returnMain(handler) {
