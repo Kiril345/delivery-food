@@ -17,6 +17,7 @@ var optionSlider = {
 var swiper = new Swiper('.swiper-container', optionSlider);
 var buttonAuth = document.querySelector('.button-auth');
 var modalAuth = document.querySelector('.modal-auth');
+var modalCart = document.querySelector('.modal-cart');
 var modalDialog = document.querySelector('.modal-dialog-auth');
 var closeAuth = document.querySelector('.close-auth');
 var logInForm = document.querySelector('#logInForm');
@@ -30,8 +31,7 @@ var menu = document.querySelector('.menu');
 var logo = document.querySelector('.logo');
 var cardsMenu = document.querySelector('.cards-menu');
 var cartButton = document.querySelector('#cart-button');
-var modal = document.querySelector('.modal');
-var close = document.querySelector('.close');
+var closeCart = document.querySelector('.close-cart');
 var sectionHeading = document.querySelector('#section-heading');
 var cartModalBody = document.querySelector('.modal-body');
 var modalPrice = document.querySelector('.modal-pricetag');
@@ -95,23 +95,42 @@ var validName = function validName(str) {
 };
 
 function toogleModalAuth() {
-  //модальное окно авторизации
-  modalAuth.classList.toggle('is-open');
+  modalAuth.classList.toggle('show-modal'); //модальное окно авторизации
+
   setTimeout(function () {
-    return modalDialog.classList.toggle('modal-dialog-hidden');
+    return modalAuth.classList.toggle('fade');
   }, 100);
 }
 
 function closeModelAuth() {
   setTimeout(function () {
-    return modalAuth.classList.toggle('is-open');
-  }, 100);
-  modalDialog.classList.toggle('modal-dialog-hidden');
+    return modalAuth.classList.toggle('show-modal');
+  }, 300);
+  modalAuth.classList.toggle('fade');
+  modalAuth.classList.toggle('hide-modal-auth');
+  setTimeout(function () {
+    return modalAuth.classList.toggle('hide-modal-auth');
+  }, 300);
 }
 
 function toggleModal() {
   //модальное окно карзины
-  modal.classList.toggle('is-open');
+  modalCart.classList.toggle('show-modal');
+  setTimeout(function () {
+    return modalCart.classList.toggle('fade');
+  }, 100);
+}
+
+function closeModalCart() {
+  //модальное окно карзины
+  modalCart.classList.toggle('fade');
+  setTimeout(function () {
+    return modalCart.classList.toggle('show-modal');
+  }, 200);
+  modalCart.classList.toggle('hide-modal-cart');
+  setTimeout(function () {
+    return modalCart.classList.toggle('hide-modal-cart');
+  }, 200);
 }
 
 function returnMain(handler) {
@@ -371,10 +390,10 @@ function init(handler) {
     cart.length = 0;
     renderCart();
   });
-  close.addEventListener('click', function (event) {
+  closeCart.addEventListener('click', function (event) {
     //закрыть меню корзины
     event.preventDefault();
-    toggleModal();
+    closeModalCart();
   });
   cardsRestaurants.addEventListener('click', function (event) {
     //открываем меню ресторана

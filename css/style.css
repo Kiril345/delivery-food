@@ -409,7 +409,7 @@ button {
     margin-right: 21px;
 }
 
-.modal {
+.modal{
     position: fixed;
     left: 0;
     top: 0;
@@ -418,71 +418,77 @@ button {
     background: rgba(0, 0, 0, 0.4);
     display: none;
     z-index: 999;
-}
-
-.modal-auth {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    display: none;
-    z-index: 999;
-}
-
-.is-open {
-    display: flex;
+    transition: opacity .3s linear;
+    opacity: 0;
 }
 
 .modal-dialog {
-    max-width: 500px;
-    height: 400px;
     background: #ffffff;
     border-radius: 5px;
     margin: auto;
-    padding: 40px 45px;
-    transition: .2s;
     overflow: hidden;
 }
-
 .modal-dialog-auth {
-    width: auto;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0
+    max-width: 500px;
+    width: 500px;
+    height: 400px;
+    padding: 40px 45px;
+    transform: translateY(50%);
 }
+.modal-dialog-cart {
+    height: auto;
+    overflow-Y: visible;
+    width: 600px;
+    max-width: 800px;
+    padding: 30px 35px;
+    max-height: calc(100% - 100px);
+    transform: translateY(100%);
+}
+.fade .modal-dialog{
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(.3,.1,.1,2),ease-in;
+    transform: translate(0);
+}
+.hide-modal-auth .modal-dialog{
+    height: 100px;
+    padding: 10px 11px; 
+    transition: .3s;
+    
+}
+.hide-modal-cart .modal-dialog{
+    transform: translateY(-100%);
+    transition: transform .2s ease-out;
+    
+}
+
 
 .label-auth {
     display: block;
     margin-bottom: 30px;
 }
-
 .label-auth span {
     width: 80px;
     display: inline-block;
     margin-bottom: 3px;
 }
-
 .modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 45px;
 }
 
 .modal-title {
-    margin-bottom: 25px;
+    margin: 0 0 25px 0;
     font-weight: bold;
     font-size: 36px;
     line-height: 42px;
 }
 
-.close {
+.close-cart{
+    margin: -85px -20px 0 0;
     font-size: 36px;
     border: none;
+    outline: transparent;
     background-color: transparent;
 }
 
@@ -585,21 +591,29 @@ button {
 
 .modal-pricetag {
     background: #262626;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #ffffff;
-    padding: 15px 20px;
+    padding: 10px 20px;
     font-size: 20px;
     line-height: 23px;
+    margin-right: 10px;
+    min-width: 80px;
 }
 
 .visible{
     display: flex;
 }
 
-.modal-dialog-hidden{
-    padding: 0!important;
-    height: 0!important;
-    
+.show-modal{
+    display: flex;
+}
+
+.is-open {
+    display: flex;
+}
+
+.fade{
+    opacity: 1;
 }
 
 @media (max-width: 1366px) {
@@ -633,6 +647,10 @@ button {
     .category,
     .price {
         font-size: 14px;
+    }
+    .modal-pricetag{
+        padding: 9px;
+        font-size: 17px;
     }
 }
 
@@ -729,8 +747,10 @@ button {
 
 @media (max-width: 578px) {
     .modal-dialog-auth{
+        height: 365px;
+    }
+    .modal-dialog{
         width: 100%;
-        height: 400px;
     }
     .container {
         width: 90%;
@@ -800,7 +820,7 @@ button {
         order: 2;
     }
     .modal-dialog{
-        padding:25px 15px;
+        padding:25px 20px;
     }
 }
 

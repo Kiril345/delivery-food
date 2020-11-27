@@ -10,6 +10,7 @@ const optionSlider = {
 const swiper = new Swiper('.swiper-container', optionSlider)
 const buttonAuth = document.querySelector('.button-auth');
 const modalAuth = document.querySelector('.modal-auth');
+const modalCart = document.querySelector('.modal-cart');
 const modalDialog = document.querySelector('.modal-dialog-auth');
 const closeAuth = document.querySelector('.close-auth');
 const logInForm = document.querySelector('#logInForm');
@@ -23,8 +24,7 @@ const menu = document.querySelector('.menu');
 const logo = document.querySelector('.logo');
 const cardsMenu = document.querySelector('.cards-menu');
 const cartButton = document.querySelector('#cart-button');
-const modal = document.querySelector('.modal');
-const close = document.querySelector('.close');
+const closeCart = document.querySelector('.close-cart');
 const sectionHeading = document.querySelector('#section-heading');
 const cartModalBody = document.querySelector('.modal-body');
 const modalPrice = document.querySelector('.modal-pricetag');
@@ -63,19 +63,29 @@ const validName = function(str) {              //валидация ввода �
 }
 
 
-function toogleModalAuth() {               //модальное окно авторизации
-  modalAuth.classList.toggle('is-open');
-  setTimeout(() => modalDialog.classList.toggle('modal-dialog-hidden') ,100);
+function toogleModalAuth() { 
+  modalAuth.classList.toggle('show-modal');             //модальное окно авторизации
+  setTimeout(() => modalAuth.classList.toggle('fade'), 100);
 }
 
 function closeModelAuth() {
-  setTimeout(() => modalAuth.classList.toggle('is-open'), 100);
-  modalDialog.classList.toggle('modal-dialog-hidden');
+  setTimeout(() => modalAuth.classList.toggle('show-modal'), 300);
+  modalAuth.classList.toggle('fade');
+  modalAuth.classList.toggle('hide-modal-auth');
+  setTimeout(() => modalAuth.classList.toggle('hide-modal-auth'), 300);
 }
 
 
 function toggleModal() {                      //модальное окно карзины
-  modal.classList.toggle('is-open');
+  modalCart.classList.toggle('show-modal');
+  setTimeout(() => modalCart.classList.toggle('fade'), 100);
+}
+
+function closeModalCart() {                      //модальное окно карзины
+  modalCart.classList.toggle('fade');
+  setTimeout(() => modalCart.classList.toggle('show-modal'), 200);
+  modalCart.classList.toggle('hide-modal-cart');
+  setTimeout(() => modalCart.classList.toggle('hide-modal-cart'), 200);
 }
 
 
@@ -350,9 +360,9 @@ function init(handler) {
     renderCart();
   });
 
-  close.addEventListener('click', event => { //закрыть меню корзины
+  closeCart.addEventListener('click', event => { //закрыть меню корзины
     event.preventDefault();
-    toggleModal();
+    closeModalCart();
   });          
 
   cardsRestaurants.addEventListener('click',  event => { //открываем меню ресторана
