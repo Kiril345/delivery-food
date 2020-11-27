@@ -450,9 +450,9 @@ button {
     transform: translate(0);
 }
 .hide-modal-auth .modal-dialog{
-    height: 100px;
-    padding: 10px 11px; 
-    transition: .3s;
+    height: 0;
+    padding: 5px 5px; 
+    transition: .2s;
     
 }
 .hide-modal-cart .modal-dialog{
