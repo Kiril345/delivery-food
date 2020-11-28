@@ -36,6 +36,8 @@ var sectionHeading = document.querySelector('#section-heading');
 var cartModalBody = document.querySelector('.modal-body');
 var modalPrice = document.querySelector('.modal-pricetag');
 var buttonClearCart = document.querySelector('.clear-cart');
+var buttonSendCart = document.querySelector('.send-cart');
+var adress = document.querySelector('.input-address');
 var buttonCartSvg = document.querySelector('.button-cart-svg');
 var login = localStorage.getItem('kiril345'); //запись ключа 
 
@@ -340,6 +342,23 @@ function changeCount(event) {
   }
 }
 
+function sendCart() {
+  //отправляем заказ из корзины
+  if (cart.length != 0) {
+    cart.length = 0;
+    renderCart();
+
+    if (adress.value != 0) {
+      cartModalBody.textContent = 'Ваша закза будет отправлен по адрессу' + ' ' + adress.value + ',' + ' ' + 'в течении 5 минут с вами свяжется оператор';
+      adress.value = '';
+    } else {
+      cartModalBody.textContent = 'Ваша закза отправлен в обработку, в течении 5 минут с вами свяжется оператор';
+    }
+  } else {
+    cartProduct();
+  }
+}
+
 function cartProduct() {
   //подсвечиваем кнопку корзины если в корззине есть товар
   if (cart.length != 0) {
@@ -392,6 +411,11 @@ function init(handler) {
     //очистка корзины
     cart.length = 0;
     renderCart();
+  });
+  buttonSendCart.addEventListener('click', function (event) {
+    //оформить заказ
+    event.preventDefault();
+    sendCart();
   });
   closeCart.addEventListener('click', function (event) {
     //закрыть меню корзины
