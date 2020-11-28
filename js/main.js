@@ -65,7 +65,7 @@ const validName = function(str) {              //валидация ввода �
 
 function openModalAuth() { 
   modalAuth.classList.toggle('show-modal');             //модальное окно авторизации
-  setTimeout(() => modalAuth.classList.toggle('fade'), 100);
+  setTimeout(() => modalAuth.classList.toggle('fade'), 50);
 }
 
 function closeModelAuth() {
@@ -78,7 +78,7 @@ function closeModelAuth() {
 
 function openModalCart() {                      //модальное окно карзины
   modalCart.classList.toggle('show-modal');
-  setTimeout(() => modalCart.classList.toggle('fade'), 100);
+  setTimeout(() => modalCart.classList.toggle('fade'), 50);
 }
 
 function closeModalCart() {    
@@ -195,7 +195,6 @@ function createCardGood({ description, id, image, name, price }) { //форми�
 								<strong class="card-price card-price-bold">${price} ₽</strong>
 							</div>
             </div>`);
-            console.log(card);
  cardsMenu.insertAdjacentElement('beforeend', card); // всьавляем карту товара в меню ремторана
 }
 
@@ -228,7 +227,6 @@ function openGoods(event) { //при клике по карте ресторан
         data.forEach(createCardGood);
       });
     }
-
 }
 
 
@@ -242,9 +240,7 @@ function addToCart(event) {        //корзина товаров
     const title = card.querySelector('.card-title-reg').textContent;
     const cost = card.querySelector('.card-price').textContent;
     console.log(title, cost, id);
-    const food = cart.find(function(item) {
-      return item.id === id;
-    })
+    const food = cart.find(item => item.id === id);
     if (food) {
       food.count += 1;
     } else{

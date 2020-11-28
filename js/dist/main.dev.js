@@ -99,7 +99,7 @@ function openModalAuth() {
 
   setTimeout(function () {
     return modalAuth.classList.toggle('fade');
-  }, 100);
+  }, 50);
 }
 
 function closeModelAuth() {
@@ -120,7 +120,7 @@ function openModalCart() {
   modalCart.classList.toggle('show-modal');
   setTimeout(function () {
     return modalCart.classList.toggle('fade');
-  }, 100);
+  }, 50);
 }
 
 function closeModalCart() {
@@ -228,7 +228,6 @@ function createCardGood(_ref2) {
   card.className = 'card';
   card.id = id;
   card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
-  console.log(card);
   cardsMenu.insertAdjacentElement('beforeend', card); // всьавляем карту товара в меню ремторана
 }
 
