@@ -32,6 +32,8 @@ const buttonClearCart = document.querySelector('.clear-cart');
 const buttonSendCart = document.querySelector('.send-cart');
 const adress = document.querySelector('.input-address');
 const buttonCartSvg = document.querySelector('.button-cart-svg');
+const authInfo = document.querySelector('.auth-info');
+const addressInfo = document.querySelector('.adress-info');
 
 let login = localStorage.getItem('kiril345'); //запись ключа 
 const cart = JSON.parse(localStorage.getItem(`kiril345_${login}`)) || [];
@@ -68,6 +70,7 @@ const validName = function(str) {              //валидация ввода �
 function openModalAuth() { 
   modalAuth.classList.toggle('show-modal');             //модальное окно авторизации
   setTimeout(() => modalAuth.classList.toggle('fade'), 50);
+  info();
 }
 
 function closeModelAuth() {
@@ -322,6 +325,17 @@ function cartProduct() {  //подсвечиваем кнопку корзины
     }
 }
 
+function info() {
+  authInfo.classList.remove('prompt-show');
+  authInfo.textContent = '';
+  let authInfoHTML = '';
+  setTimeout(() => {
+    authInfoHTML = `<div class="prompt">для входа введите любой email и нажмите "войти"</div>`;
+    authInfo.insertAdjacentHTML('beforeend', authInfoHTML);
+  }, 800);
+  setTimeout(() => authInfo.classList.add('prompt-show'), 1000);
+}
+
 
 function init(handler) {
   handler();
@@ -391,6 +405,11 @@ function init(handler) {
     event.preventDefault();
     returnMain(chekAuth);
     cartProduct();
+  });
+
+  loginInput.addEventListener('click', event => {
+    event.preventDefault();
+    authInfo.classList.remove('prompt-show');
   });
 
 }

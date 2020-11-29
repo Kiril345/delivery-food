@@ -39,6 +39,8 @@ var buttonClearCart = document.querySelector('.clear-cart');
 var buttonSendCart = document.querySelector('.send-cart');
 var adress = document.querySelector('.input-address');
 var buttonCartSvg = document.querySelector('.button-cart-svg');
+var authInfo = document.querySelector('.auth-info');
+var addressInfo = document.querySelector('.adress-info');
 var login = localStorage.getItem('kiril345'); //запись ключа 
 
 var cart = JSON.parse(localStorage.getItem("kiril345_".concat(login))) || [];
@@ -102,6 +104,7 @@ function openModalAuth() {
   setTimeout(function () {
     return modalAuth.classList.toggle('fade');
   }, 50);
+  info();
 }
 
 function closeModelAuth() {
@@ -366,6 +369,19 @@ function cartProduct() {
   }
 }
 
+function info() {
+  authInfo.classList.remove('prompt-show');
+  authInfo.textContent = '';
+  var authInfoHTML = '';
+  setTimeout(function () {
+    authInfoHTML = "<div class=\"prompt\">\u0434\u043B\u044F \u0432\u0445\u043E\u0434\u0430 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u043B\u044E\u0431\u043E\u0439 email \u0438 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \"\u0432\u043E\u0439\u0442\u0438\"</div>";
+    authInfo.insertAdjacentHTML('beforeend', authInfoHTML);
+  }, 800);
+  setTimeout(function () {
+    return authInfo.classList.add('prompt-show');
+  }, 1000);
+}
+
 function init(handler) {
   handler();
   getData('./db/partners.json').then(function (data) {
@@ -429,6 +445,10 @@ function init(handler) {
     event.preventDefault();
     returnMain(chekAuth);
     cartProduct();
+  });
+  loginInput.addEventListener('click', function (event) {
+    event.preventDefault();
+    authInfo.classList.remove('prompt-show');
   });
 }
 
