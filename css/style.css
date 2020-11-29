@@ -634,8 +634,8 @@ button {
     }
 
     .vegetables {
-        background-position: top 0 right -93px;
-        background-size: 820px;
+        background-position: top 0 right -120px;
+        background-size: 870px;
     }
 
     .sushi {
@@ -772,11 +772,24 @@ button {
         order: 5;
         flex: 1;
     }
-
-    .promo {
-        background-image: none;
+    .pizza {
+        background-position: bottom -150px center;
+    }
+    .kebab {
+        background-position: bottom -110px center;
+        background-size: 300px;
     }
 
+    .vegetables {
+        background: #FFF566 url(../img/promo/vegetables-mob.png) no-repeat top 0 right 0 / 825px;
+        background-position: bottom -590px center;
+        background-size: 520px;
+    }
+
+    .sushi {
+        background-position: bottom -55px center;
+        background-size: 302px;
+    }
     .promo-title {
         margin-bottom: 10px;
     }
@@ -905,5 +918,11 @@ button {
     }
     .food-price{
         margin-right: 15px;
+    }
+}
+@media (max-width: 320px) {
+    .vegetables {
+        background-position: bottom -350px center;
+        background-size: 300px;
     }
 }

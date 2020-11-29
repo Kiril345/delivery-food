@@ -207,7 +207,6 @@ function createCardRestaurant(_ref) {
   var cardRestaurant = document.createElement('a');
   cardRestaurant.classList.add('card', 'card-restaurant');
   cardRestaurant.products = products;
-  console.log(products);
   cardRestaurant.info = {
     kitchen: kitchen,
     name: name,
@@ -225,28 +224,27 @@ function createCardGood(_ref2) {
       image = _ref2.image,
       name = _ref2.name,
       price = _ref2.price;
-  //формируем карту товара ресторана
+  //формируем карты товара ресторана
   var card = document.createElement('div');
   card.className = 'card';
   card.id = id;
   card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
-  cardsMenu.insertAdjacentElement('beforeend', card); // всьавляем карту товара в меню ремторана
+  cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню ремторана
 }
 
 function openGoods(event) {
   //при клике по карте ресторана открываем его меню и скрываем список других ресторанов
   var target = event.target;
-  console.log(target);
   var restaurant = target.closest('.card-restaurant');
-  console.log('restaurant', restaurant);
 
   if (restaurant) {
     var headingRestaurant = function headingRestaurant() {
       //добавляем заголовок на странице меню ресторана
-      var card = "<h2 class=\"section-title restaurant-title\">".concat(name, "</h2>\n                      <div class=\"card-info\">\n                        <div class=\"rating\">").concat(stars, "</div>\n                        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n                        <div class=\"category\">").concat(kitchen, "</div>\n                      </div>");
+      var card = "\n      <h2 class=\"section-title restaurant-title\">".concat(name, "</h2>              \n      <div class=\"card-info\">\n        <div class=\"rating\">").concat(stars, "</div>\n        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n        <div class=\"category\">").concat(kitchen, "</div>\n      </div>");
       sectionHeading.insertAdjacentHTML('beforeend', card);
     };
 
+    console.log(restaurant.info);
     containerPromo.classList.add('hide');
     swiper.destroy(false); //отключение свайпера
 
@@ -264,7 +262,6 @@ function openGoods(event) {
     headingRestaurant();
     getData("./db/".concat(restaurant.products)).then(function (data) {
       // запрос на получение данных
-      console.log(data);
       data.forEach(createCardGood);
     });
   }
@@ -371,6 +368,11 @@ function cartProduct() {
 
 function init(handler) {
   handler();
+  getData('./db/partners.json').then(function (data) {
+    // запрос и получение данных
+    console.log(data);
+    data.forEach(createCardRestaurant); //перебирается массив данных и создаются карты ресторанов
+  });
   buttonAuth.addEventListener('click', function (event) {
     event.preventDefault();
     openModalAuth();
@@ -390,11 +392,6 @@ function init(handler) {
   cardsMenu.addEventListener('click', function (event) {
     event.preventDefault();
     addToCart(event);
-  });
-  getData('./db/partners.json').then(function (data) {
-    // запрос и получение данных
-    console.log(data);
-    data.forEach(createCardRestaurant); //перебирается массив данных и создаются карты ресторанов
   });
   cartButton.addEventListener('click', function (event) {
     //открыть окно корзины

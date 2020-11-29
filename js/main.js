@@ -147,12 +147,10 @@ function chekAuth(){
 }
 
 
-function createCardRestaurant({ image, kitchen, name, 
-  price, stars, products, time_of_delivery: timeOfDelivery }) {
+function createCardRestaurant({ image, kitchen, name, price, stars, products, time_of_delivery: timeOfDelivery }) {
   const cardRestaurant = document.createElement('a');
   cardRestaurant.classList.add('card', 'card-restaurant');
   cardRestaurant.products = products;
-  console.log(products);
   cardRestaurant.info = { kitchen, name, price, stars };
   const card = `
     <img src=${image} alt=${name} class="card-image"/>
@@ -175,7 +173,7 @@ function createCardRestaurant({ image, kitchen, name,
 }
 
 
-function createCardGood({ description, id, image, name, price }) { //формируем карту товара ресторана
+function createCardGood({ description, id, image, name, price }) { //формируем карты товара ресторана
     const card = document.createElement('div');
     card.className = 'card';
     card.id = id;
@@ -197,38 +195,37 @@ function createCardGood({ description, id, image, name, price }) { //форми�
 								<strong class="card-price card-price-bold">${price} ₽</strong>
 							</div>
             </div>`);
- cardsMenu.insertAdjacentElement('beforeend', card); // всьавляем карту товара в меню ремторана
+ cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню ремторана
 }
 
 
 function openGoods(event) { //при клике по карте ресторана открываем его меню и скрываем список других ресторанов
   const target = event.target;
-  console.log(target);
-    const restaurant = target.closest('.card-restaurant');
-    console.log('restaurant', restaurant);
-    if(restaurant) {
-      containerPromo.classList.add('hide');
-      swiper.destroy(false);   //отключение свайпера
-      restaurants.classList.add('hide');
-      menu.classList.remove('hide');
-      cardsMenu.textContent = '';                //очистка меню ресторана при возврате на главную страницу
-      sectionHeading.textContent = '';           //очистка заголовка ресторана при возврате на главную страницу
-      const { name, kitchen, price, stars } = restaurant.info;
-      function headingRestaurant() {  //добавляем заголовок на странице меню ресторана
-        const card = `<h2 class="section-title restaurant-title">${name}</h2>
-                      <div class="card-info">
-                        <div class="rating">${stars}</div>
-                        <div class="price">От ${price} ₽</div>
-                        <div class="category">${kitchen}</div>
-                      </div>`;
-        sectionHeading.insertAdjacentHTML('beforeend', card);
-      }
-      headingRestaurant();
-      getData(`./db/${restaurant.products}`).then(function(data) { // запрос на получение данных
-        console.log(data);
-        data.forEach(createCardGood);
-      });
+  const restaurant = target.closest('.card-restaurant');
+  if(restaurant) {
+    console.log(restaurant.info);
+    containerPromo.classList.add('hide');
+    swiper.destroy(false);   //отключение свайпера
+    restaurants.classList.add('hide');
+    menu.classList.remove('hide');
+    cardsMenu.textContent = '';                //очистка меню ресторана при возврате на главную страницу
+    sectionHeading.textContent = '';           //очистка заголовка ресторана при возврате на главную страницу
+    const { name, kitchen, price, stars } = restaurant.info;
+    function headingRestaurant() {  //добавляем заголовок на странице меню ресторана
+      const card = `
+      <h2 class="section-title restaurant-title">${name}</h2>              
+      <div class="card-info">
+        <div class="rating">${stars}</div>
+        <div class="price">От ${price} ₽</div>
+        <div class="category">${kitchen}</div>
+      </div>`;
+      sectionHeading.insertAdjacentHTML('beforeend', card);
     }
+    headingRestaurant();
+    getData(`./db/${restaurant.products}`).then(function(data) { // запрос на получение данных
+    data.forEach(createCardGood);
+    });
+  }
 }
 
 
@@ -328,6 +325,12 @@ function cartProduct() {  //подсвечиваем кнопку корзины
 
 function init(handler) {
   handler();
+
+  getData('./db/partners.json').then(function(data) { // запрос и получение данных
+    console.log(data);
+    data.forEach(createCardRestaurant);               //перебирается массив данных и создаются карты ресторанов
+  });
+
   buttonAuth.addEventListener('click',  event => {
     event.preventDefault();
     openModalAuth();
@@ -353,11 +356,6 @@ function init(handler) {
     addToCart(event);
   });
   
-  getData('./db/partners.json').then(function(data) { // запрос и получение данных
-    console.log(data);
-    data.forEach(createCardRestaurant);               //перебирается массив данных и создаются карты ресторанов
-  });
-
   cartButton.addEventListener('click', event => {  //открыть окно корзины
     event.preventDefault();
     renderCart(); 
