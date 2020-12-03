@@ -145,9 +145,11 @@ function closeModalCart() {
 function returnMain(handler) {
   //возврат на главную страницу
   containerPromo.classList.remove('hide');
-  swiper.init();
+  swiper.update(); //swiper.destroy (true , true);
+
   restaurants.classList.remove('hide');
   menu.classList.add('hide');
+  swiper.changeDirection('horisontal');
   handler();
 }
 
@@ -245,9 +247,8 @@ function openGoods(event) {
       sectionHeading.insertAdjacentHTML('beforeend', card);
     };
 
+    //swiper.destroy(false, true);
     containerPromo.classList.add('hide');
-    swiper.destroy(false); //отключение свайпера
-
     restaurants.classList.add('hide');
     menu.classList.remove('hide');
     cardsMenu.textContent = ''; //очистка меню ресторана при возврате на главную страницу

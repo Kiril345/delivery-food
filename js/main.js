@@ -7,7 +7,7 @@ const optionSlider = {
   effect: 'coverflow',
 };
 
-const swiper = new Swiper('.swiper-container', optionSlider)
+const swiper = new Swiper('.swiper-container', optionSlider);
 const buttonAuth = document.querySelector('.button-auth');
 const modalAuth = document.querySelector('.modal-auth');
 const modalCart = document.querySelector('.modal-cart');
@@ -96,9 +96,11 @@ function closeModalCart() {
 
 function returnMain(handler) {                      //возврат на главную страницу
   containerPromo.classList.remove('hide');
-  swiper.init();
+  swiper.update();
+  //swiper.destroy (true , true);
   restaurants.classList.remove('hide');
   menu.classList.add('hide');
+  swiper.changeDirection ( 'horisontal' );
   handler();
 }
 
@@ -204,8 +206,8 @@ function openGoods(event) { //при клике по карте ресторан
   const target = event.target;
   const restaurant = target.closest('.card-restaurant');
   if(restaurant) {
+    //swiper.destroy(false, true);
     containerPromo.classList.add('hide');
-    swiper.destroy(false);   //отключение свайпера
     restaurants.classList.add('hide');
     menu.classList.remove('hide');
     cardsMenu.textContent = '';                //очистка меню ресторана при возврате на главную страницу
