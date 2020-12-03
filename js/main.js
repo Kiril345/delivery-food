@@ -206,6 +206,7 @@ function openGoods(event) { //при клике по карте ресторан
   const target = event.target;
   const restaurant = target.closest('.card-restaurant');
   if(restaurant) {
+    document.documentElement.scrollTop = 0;
     swiper.destroy(false, true);
     containerPromo.classList.add('hide');
     restaurants.classList.add('hide');

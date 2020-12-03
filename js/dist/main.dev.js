@@ -247,6 +247,7 @@ function openGoods(event) {
       sectionHeading.insertAdjacentHTML('beforeend', card);
     };
 
+    document.documentElement.scrollTop = 0;
     swiper.destroy(false, true);
     containerPromo.classList.add('hide');
     restaurants.classList.add('hide');
