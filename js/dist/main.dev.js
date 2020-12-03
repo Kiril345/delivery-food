@@ -183,7 +183,6 @@ function logOut() {
 
 function chekAuth() {
   if (login != null) {
-    console.log('Авторизован');
     userName.textContent = login.substring(0, login.indexOf('@'));
     userName.classList.add('visible');
     buttonAuth.classList.add('hidden');
@@ -191,7 +190,6 @@ function chekAuth() {
     cartButton.classList.add('visible');
     cartProduct();
   } else {
-    console.log('Не авторизован');
     userName.classList.remove('visible');
     buttonAuth.classList.remove('hidden');
     buttonOut.classList.remove('visible');
@@ -232,7 +230,7 @@ function createCardGood(_ref2) {
   card.className = 'card';
   card.id = id;
   card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
-  cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню ремторана
+  cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню реcторана
 }
 
 function openGoods(event) {
@@ -247,7 +245,6 @@ function openGoods(event) {
       sectionHeading.insertAdjacentHTML('beforeend', card);
     };
 
-    console.log(restaurant.info);
     containerPromo.classList.add('hide');
     swiper.destroy(false); //отключение свайпера
 
@@ -281,7 +278,6 @@ function addToCart(event) {
       var id = card.id;
       var title = card.querySelector('.card-title-reg').textContent;
       var cost = card.querySelector('.card-price').textContent;
-      console.log(title, cost, id);
       var food = cart.find(function (item) {
         return item.id === id;
       });
@@ -386,7 +382,6 @@ function init(handler) {
   handler();
   getData('./db/partners.json').then(function (data) {
     // запрос и получение данных
-    console.log(data);
     data.forEach(createCardRestaurant); //перебирается массив данных и создаются карты ресторанов
   });
   buttonAuth.addEventListener('click', function (event) {

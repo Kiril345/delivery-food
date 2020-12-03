@@ -133,7 +133,6 @@ function logOut() { //выход
 
 function chekAuth(){
   if(login != null) {
-    console.log('Авторизован');
     userName.textContent = login.substring(0, login.indexOf('@'));
     userName.classList.add('visible');
     buttonAuth.classList.add('hidden');
@@ -141,7 +140,6 @@ function chekAuth(){
     cartButton.classList.add('visible');
     cartProduct();
   } else {
-    console.log('Не авторизован');
     userName.classList.remove('visible');
     buttonAuth.classList.remove('hidden');
     buttonOut.classList.remove('visible');
@@ -198,7 +196,7 @@ function createCardGood({ description, id, image, name, price }) { //форми�
 								<strong class="card-price card-price-bold">${price} ₽</strong>
 							</div>
             </div>`);
- cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню ремторана
+ cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню реcторана
 }
 
 
@@ -206,7 +204,6 @@ function openGoods(event) { //при клике по карте ресторан
   const target = event.target;
   const restaurant = target.closest('.card-restaurant');
   if(restaurant) {
-    console.log(restaurant.info);
     containerPromo.classList.add('hide');
     swiper.destroy(false);   //отключение свайпера
     restaurants.classList.add('hide');
@@ -241,7 +238,6 @@ function addToCart(event) {        //корзина товаров
     const id = card.id;
     const title = card.querySelector('.card-title-reg').textContent;
     const cost = card.querySelector('.card-price').textContent;
-    console.log(title, cost, id);
     const food = cart.find(item => item.id === id);
     if (food) {
       food.count += 1;
@@ -341,7 +337,6 @@ function init(handler) {
   handler();
 
   getData('./db/partners.json').then(function(data) { // запрос и получение данных
-    console.log(data);
     data.forEach(createCardRestaurant);               //перебирается массив данных и создаются карты ресторанов
   });
 

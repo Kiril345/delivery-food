@@ -12,11 +12,9 @@ button {
     color: inherit;
 }
 
-
 .hide {
     display: none;
 }
-
 
 .container {
     max-width: 1200px;
@@ -160,7 +158,6 @@ button {
     display: none;
 }
 
-
 .user-name {
     display: none;
     margin-right: 20px;
@@ -234,7 +231,9 @@ button {
     margin: 0 30px 0 0;
     color: #000000;
 }
-
+.menu{
+    min-height: 550px;
+}
 .cards {
     display: flex;
     align-items: flex-start;
@@ -250,7 +249,6 @@ button {
     margin-bottom: 30px;
     flex-basis: 31%;
     text-decoration: none;
-
 }
 
 .card-restaurant {
