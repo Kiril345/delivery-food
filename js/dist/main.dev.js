@@ -145,8 +145,8 @@ function closeModalCart() {
 function returnMain(handler) {
   //возврат на главную страницу
   containerPromo.classList.remove('hide');
+  swiper.destroy(false, true);
   swiper = new Swiper('.swiper-container', optionSlider);
-  swiper.init();
   restaurants.classList.remove('hide');
   menu.classList.add('hide');
   swiper.changeDirection('horisontal');
