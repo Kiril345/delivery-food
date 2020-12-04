@@ -871,7 +871,7 @@ button {
 }
 
 @media (max-width: 480px) {
-    .swiper-container{
+    .container-promo{
         height: 350px;
     }
     .header{
