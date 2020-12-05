@@ -216,7 +216,7 @@ function createCardRestaurant(_ref) {
     price: price,
     stars: stars
   };
-  var card = "\n    <img src=".concat(image, " alt=").concat(name, " class=\"card-image\"/>\n    <div class=\"card-text\">\n      <div class=\"card-heading\">\n        <h3 class=\"card-title\">").concat(name, "</h3>\n        <span class=\"card-tag tag\">").concat(timeOfDelivery, " \u043C\u0438\u043D</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"rating\">\n          ").concat(stars, "\n        </div>\n        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n        <div class=\"category\">").concat(kitchen, "</div>\n      </div>\n    </div>\n  ");
+  var card = "\n    <img src=".concat(image, " alt=").concat(name, " class=\"card-image\"/>\n    <div class=\"card-text\">\n      <div class=\"card-heading\">\n        <h3 class=\"card-title\">").concat(name, "</h3>\n        <span class=\"card-tag tag\">").concat(timeOfDelivery, " \u043C\u0438\u043D</span>\n      </div>\n      <div class=\"card-info\">\n        <div class=\"rating\">\n          ").concat(stars, "\n        </div>\n        <div class=\"price\">\u041E\u0442 ").concat(price, " \u0433\u0440\u043D</div>\n        <div class=\"category\">").concat(kitchen, "</div>\n      </div>\n    </div>\n  ");
   cardRestaurant.insertAdjacentHTML('beforeend', card);
   cardsRestaurants.insertAdjacentElement('beforeend', cardRestaurant);
 }
@@ -231,7 +231,7 @@ function createCardGood(_ref2) {
   var card = document.createElement('div');
   card.className = 'card';
   card.id = id;
-  card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u20BD</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
+  card.insertAdjacentHTML('beforeend', "\n\t\t\t\t\t\t<img src=\"".concat(image, "\" class=\"card-image\"/>\n\t\t\t\t\t\t<div class=\"card-text\">\n\t\t\t\t\t\t\t<div class=\"card-heading\">\n\t\t\t\t\t\t\t\t<h3 class=\"card-title card-title-reg\">").concat(name, "</h3>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-info\">\n\t\t\t\t\t\t\t\t<div class=\"ingredients\">").concat(description, "\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-buttons\">\n\t\t\t\t\t\t\t\t<button class=\"button button-primary button-add-cart\">\n\t\t\t\t\t\t\t\t\t<span class=\"button-card-text\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</span>\n\t\t\t\t\t\t\t\t\t<span class=\"button-cart-svg\"></span>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t<strong class=\"card-price card-price-bold\">").concat(price, " \u0433\u0440\u043D</strong>\n\t\t\t\t\t\t\t</div>\n            </div>"));
   cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню реcторана
 }
 
@@ -243,7 +243,7 @@ function openGoods(event) {
   if (restaurant) {
     var headingRestaurant = function headingRestaurant() {
       //добавляем заголовок на странице меню ресторана
-      var card = "\n      <h2 class=\"section-title restaurant-title\">".concat(name, "</h2>              \n      <div class=\"card-info\">\n        <div class=\"rating\">").concat(stars, "</div>\n        <div class=\"price\">\u041E\u0442 ").concat(price, " \u20BD</div>\n        <div class=\"category\">").concat(kitchen, "</div>\n      </div>");
+      var card = "\n      <h2 class=\"section-title restaurant-title\">".concat(name, "</h2>              \n      <div class=\"card-info\">\n        <div class=\"rating\">").concat(stars, "</div>\n        <div class=\"price\">\u041E\u0442 ").concat(price, " \u0433\u0440\u043D</div>\n        <div class=\"category\">").concat(kitchen, "</div>\n      </div>");
       sectionHeading.insertAdjacentHTML('beforeend', card);
     };
 
@@ -316,7 +316,7 @@ function renderCart() {
   var totalPrice = cart.reduce(function (result, item) {
     return result + parseFloat(item.cost) * item.count;
   }, 0);
-  modalPrice.textContent = totalPrice + ' ' + '₽';
+  modalPrice.textContent = totalPrice + ' ' + 'грн';
   cartProduct();
   saveCart();
 }
@@ -347,10 +347,10 @@ function sendCart() {
     renderCart();
 
     if (adress.value != 0) {
-      cartModalBody.textContent = 'Ваша закза будет отправлен по адрессу' + ' ' + adress.value + ',' + ' ' + 'в течении 5 минут с вами свяжется оператор';
+      cartModalBody.textContent = 'Спасибо, ваш закз будет отправлен по адрессу' + ' ' + adress.value + ',' + ' ' + 'в течении 5 минут с вами свяжется оператор';
       adress.value = '';
     } else {
-      cartModalBody.textContent = 'Ваша закза отправлен в обработку, в течении 5 минут с вами свяжется оператор';
+      cartModalBody.textContent = 'Спасибо, ваш закз отправлен в обработку, в течении 5 минут с вами свяжется оператор';
     }
   } else {
     cartProduct();

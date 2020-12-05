@@ -166,7 +166,7 @@ function createCardRestaurant({ image, kitchen, name, price, stars, products, ti
         <div class="rating">
           ${stars}
         </div>
-        <div class="price">От ${price} ₽</div>
+        <div class="price">От ${price} грн</div>
         <div class="category">${kitchen}</div>
       </div>
     </div>
@@ -195,7 +195,7 @@ function createCardGood({ description, id, image, name, price }) { //форми�
 									<span class="button-card-text">В корзину</span>
 									<span class="button-cart-svg"></span>
 								</button>
-								<strong class="card-price card-price-bold">${price} ₽</strong>
+								<strong class="card-price card-price-bold">${price} грн</strong>
 							</div>
             </div>`);
  cardsMenu.insertAdjacentElement('beforeend', card); // вставляем карту товара в меню реcторана
@@ -219,7 +219,7 @@ function openGoods(event) { //при клике по карте ресторан
       <h2 class="section-title restaurant-title">${name}</h2>              
       <div class="card-info">
         <div class="rating">${stars}</div>
-        <div class="price">От ${price} ₽</div>
+        <div class="price">От ${price} грн</div>
         <div class="category">${kitchen}</div>
       </div>`;
       sectionHeading.insertAdjacentHTML('beforeend', card);
@@ -276,7 +276,7 @@ function renderCart() {
   const totalPrice = cart.reduce(function(result, item) { 
     return result + (parseFloat(item.cost) * item.count) ; 
   }, 0);
-  modalPrice.textContent = totalPrice + ' ' + '₽' ;
+  modalPrice.textContent = totalPrice + ' ' + 'грн' ;
   cartProduct(); 
   saveCart();
 }
@@ -303,10 +303,10 @@ function sendCart() {  //отправляем заказ из корзины
   cart.length = 0;
   renderCart();
     if(adress.value != 0) {
-      cartModalBody.textContent = 'Ваша закза будет отправлен по адрессу' + ' ' + adress.value + ','+' '+'в течении 5 минут с вами свяжется оператор';
+      cartModalBody.textContent = 'Спасибо, ваш закз будет отправлен по адрессу' + ' ' + adress.value + ','+' '+'в течении 5 минут с вами свяжется оператор';
     adress.value = '';
     } else {
-      cartModalBody.textContent = 'Ваша закза отправлен в обработку, в течении 5 минут с вами свяжется оператор';
+      cartModalBody.textContent = 'Спасибо, ваш закз отправлен в обработку, в течении 5 минут с вами свяжется оператор';
     }
   } else {
     cartProduct();

@@ -26,7 +26,7 @@ button {
     margin: auto;
 }
 
-.header {
+.header-container {
     padding-top: 44px;
     display: flex;
     align-items: center;
@@ -241,7 +241,6 @@ button {
 }
 .cards {
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
 }
@@ -268,7 +267,7 @@ button {
 
 .card-text {
     padding: 20px 23px 35px;
-    min-height: 275px;
+    min-height: 290px;
     display: flex;
     flex-direction: column;
 }
@@ -324,7 +323,7 @@ button {
     font-weight: bold;
     font-size: 20px;
     line-height: 32px;
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 .rating {
@@ -675,7 +674,7 @@ button {
     }
 
     .rating {
-        margin-right: 15px;
+        margin-right: 10px;
     }
 
     .category,
@@ -742,7 +741,8 @@ button {
     }
 
     .card-price-bold {
-        margin-left: 20px;
+        margin-left: 10px;
+        font-size: 18px;
     }
 
     .pizza {
@@ -776,6 +776,9 @@ button {
     .search, .input-search{
         width: 100%;
     }
+    .button{
+        padding: 8px 10px;
+    }
 }
 
 @media (max-width: 578px) {
@@ -794,7 +797,7 @@ button {
         order: 1;
     }
 
-    .header {
+    .header-container {
         flex-wrap: wrap;
     }
 
@@ -874,7 +877,7 @@ button {
     .container-promo{
         height: 350px;
     }
-    .header{
+    .header-container{
         padding-top: 24px;
         margin-bottom: 20px;
     }
